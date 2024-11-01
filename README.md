@@ -1,22 +1,4 @@
-# MagicSpend
-
-MagicSpend is a contract that allows onchain accounts to present valid Withdraw Requests and receive funds. A Withdraw Request is defined as
-
-```solidity
-struct WithdrawRequest {
-    bytes signature;
-    address asset;
-    uint256 amount;
-    uint256 nonce;
-    uint48 expiry;
- }
-```
-
-Where signature is an [EIP-191](https://eips.ethereum.org/EIPS/eip-191) compliant signature of the message
-
-```solidity
-abi.encode(
-  <MagicSpend contract address>,
+ contract address>,
   <UserOperation.sender and/or msg.sender of the withdraw call>,
   <chain ID>,
   withdrawRequest.asset,
@@ -60,26 +42,5 @@ When the withdrawing account is an ERC-4337 compliant smart contract (like [Smar
 
 ### Transfer funds during execution only
 
-<img width="600" alt="Diagram of 'Transfer funds during execution only' flow" src="https://github.com/coinbase/magic-spend/assets/6678357/124548ca-209d-41ac-844a-cbf5717a702e">
-
-This is the simplest flow. The MagicSpend account is agnostic to any details of this transaction, even whether or not the caller is a SCW. It simply validates the withdraw and transfers funds if valid.
-
-### Pay gas and transfer funds during execution
-
-<img width="898" alt="Pay gas and transfer funds during execution" src="https://github.com/coinbase/magic-spend/assets/6678357/4b81fea7-9b45-4cfd-acdb-66f88f6bc642">
-
-This flow is like "Pay gas only” with the addition of (7.) and (8.). Here, the SCW also requests funds during execution. In this flow, a user might be, for example, trying to mint an NFT and needs funds for the mint.
-
-## Developing
-
-After cloning the repo, run the tests using Forge, from [Foundry](https://github.com/foundry-rs/foundry?tab=readme-ov-file)
-
-```bash
-forge test
-```
-
-You can run the echinda tests with this make command
-
-```bash
-make echidna-test
+<img width="600" alt="Diagram of 'Transfer funds during execution only' flow" src="https://github.com/coinbase/magic-spend/assets/6678357/124548ca-209d-41ac-844a 
 ```
